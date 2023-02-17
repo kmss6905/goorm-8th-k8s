@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sbadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sbadmin
+  template:
+    metadata:
+      labels:
+        app: sbadmin
+    spec:
+      initContainers:
+      - name: git-clone
+        image: alpine/git
+        args: ['clone', 'https://github.com/startbootstrap/startbootstrap-sb-admin-2', '/web']
+        volumeMounts:
+        - name: web-contents
+          mountPath: /web
+      containers:
+      - name: webserver
+        image: nginx
+        volumeMounts:
+        - name: web-contents
+          mountPath: /usr/share/nginx/html
+        ports:
+        - containerPort: 80
+      volumes:
+      - name: web-contents
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sbadmin-svc
+spec:
+  selector:
+    app: sbadmin
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
