@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubectl
+spec:
+  #serviceAccountName: myuser1
+  containers:
+  - name: kubectl
+    image: bitnami/kubectl:1.24.6
+    command: ['sleep']
+    args: ['infinity']
