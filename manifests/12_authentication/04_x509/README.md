@@ -49,3 +49,39 @@ kubectl get csr myuser3 -o jsonpath='{.status.certificate}' | base64 -d > myuser
 openssl x509 -in myuser3.crt -text -noout
 ```
 
+```bash
+kubectl create -f role-admin-pod.yaml -f rbind-myuser3.yaml
+```
+
+```bash
+kubectl config view
+```
+
+```bash
+kubectl config get-clusters
+kubectl config get-users
+kubectl config get-contexts
+```
+
+```bash
+kubectl config set-credentials myuser3 --client-certificate=myuser3.crt --client-key=myuser3.key --embed-certs
+```
+
+```bash
+kubectl config get-users
+kubectl config view
+```
+
+```bash
+kubectl config set-context myuser3@cluster.local --cluster=cluster.local --user=myuser3 --namespace=default
+```
+
+```bash
+kubectl config get-contexts
+kubectl config view
+```
+
+```bash
+kubectl config use-context myuser3@cluster.local
+```
+
