@@ -48,3 +48,48 @@ kubectl get pvc,pv
 kubectl delete pvc --all
 ```
 
+---
+
+```bash
+helm install mydb bitnami/mysql
+```
+
+```bash
+helm list
+kubectl get svc
+```
+
+```bash
+helm show values bitnami/mysql
+```
+
+`my-param.yaml`
+```yaml
+primary:
+  service:
+    type: NodePort
+```
+
+```bash
+helm upgrade mydb bitnami/mysql -f my-param.yaml
+```
+
+```bash
+helm list
+helm history mydb
+kubectl get svc
+```
+
+```bash
+helm rollback mydb 1
+helm list
+helm history mydb
+kubectl get svc
+```
+
+```bash
+helm uninstall mydb
+kubectl delete pvc --all
+```
+
+
