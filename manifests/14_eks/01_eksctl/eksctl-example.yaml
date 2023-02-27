@@ -1,0 +1,97 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: mycluster
+  region: ap-northeast-2
+  version: "1.24"
+
+#AZ
+availabilityZones: ["ap-northeast-2a", "ap-northeast-2b",  "ap-northeast-2c", "ap-northeast-2d"]
+
+# IAM OIDC & Service Account
+iam:
+  withOIDC: true
+  serviceAccounts:
+    - metadata:
+        name: aws-load-balancer-controller
+        namespace: kube-system
+      wellKnownPolicies:
+        awsLoadBalancerController: true
+    - metadata:
+        name: ebs-csi-controller-sa
+        namespace: kube-system
+      wellKnownPolicies:
+        ebsCSIController: true
+    - metadata:
+        name: cluster-autoscaler
+        namespace: kube-system
+      wellKnownPolicies:
+        autoScaler: true
+
+# Unmanaged Node Groups
+nodeGroups:
+  # On-Demand Instance / Public Network / SSH
+  - name: ng-1
+    instanceType: t3.medium
+    desiredCapacity: 1
+    availabilityZones: ["ap-northeast-2a", "ap-northeast-2b"]
+    ssh:
+      allow: true
+      publicKeyPath: ./eks-key.pub
+
+  # Spot Instances / Scaling / Private Network
+  # IAM Policy: AutoScaler, ALB Ingress, CloudWatch, EBS
+  - name: ng-spot-2
+    minSize: 1
+    desiredCapacity: 2
+    maxSize: 3
+    privateNetworking: true
+    instancesDistribution:
+      maxPrice: 0.01
+      instanceTypes: ["t3.small", "t3.medium"]
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+      spotInstancePools: 2
+    availabilityZones: ["ap-northeast-2c", "ap-northeast-2d"]
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        albIngress: true
+        cloudWatch: true
+        ebs: true
+
+  # Mixed(On-Demand/Spot) Instances
+  - name: ng-mixed-3
+    desiredCapacity: 2
+    instancesDistribution:
+      maxPrice: 0.01
+      instanceTypes: ["t3.small", "t3.small"]
+      onDemandBaseCapacity: 1
+      onDemandPercentageAboveBaseCapacity: 50
+
+# Managed Node Groups
+managedNodeGroups:
+  # On-Demand Instance
+  - name: managed-ng-1
+    instanceType: t3.small
+    desiredCapacity: 2
+
+  # Spot Instance
+  - name: managed-ng-spot-2
+    instanceTypes: ["t3.small", "t3.medium"]
+    desiredCapacity: 1
+    spot: true
+
+# Fargate Profiles
+fargateProfiles:
+  - name: fg-1
+    selectors:
+    - namespace: dev
+      labels:
+        env: fargate
+
+# CloudWatch Logging
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["api", "scheduler"]
