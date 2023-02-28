@@ -37,7 +37,7 @@ choco install eksctl
 ### helm
 
 ```bash
-choco install helm
+choco install kubernetes-helm
 ```
 
 ## MacOS
