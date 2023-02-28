@@ -34,6 +34,12 @@ choco install kubernetes-cli --version=1.24.10
 choco install eksctl
 ```
 
+### helm
+
+```bash
+choco install helm
+```
+
 ## MacOS
 
 ### Homebrew
@@ -62,4 +68,10 @@ curl -LO "https://dl.k8s.io/release/v1.24.6/bin/darwin/arm64/kubectl"
 
 ```bash
 sudo install kubectl /usr/local/bin
+```
+
+### helm
+
+```bash
+brew install helm
 ```
