@@ -1,0 +1,13 @@
+controller:
+  tag: "lts-jdk11"
+  serviceType: LoadBalancer
+  installPlugins:
+  - kubernetes
+  - workflow-aggregator
+  - git
+  - configuration-as-code
+  - pipeline-stage-view
+  adminPassword: "P@ssw0rd"
+
+persistence:
+  storageClass: "gp2"
