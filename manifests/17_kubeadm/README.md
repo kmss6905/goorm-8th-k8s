@@ -149,7 +149,7 @@ sudo apt-mark hold kubelet kubeadm kubectl
 sudo docker info | grep -i "cgroup driver"
 ```
 
-`/lib/systemd/system/docker/service` 파일 수정
+`/lib/systemd/system/docker.service` 파일 수정
 ```shell
 ...
 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock --exec-opt native.cgroupdriver=systemd
