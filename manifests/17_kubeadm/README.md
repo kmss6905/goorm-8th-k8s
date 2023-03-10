@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
   $vm_name_prefix = "kube"
 
   $number_of_control_planes = 1
-  $number_of_nodes = 3
+  $number_of_nodes = 1
 
   $vm_subnet = "192.168.56"
 
