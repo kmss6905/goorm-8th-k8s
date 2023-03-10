@@ -25,6 +25,11 @@ etcdctl member list
 etcdctl snapshot save snapshotdb
 ```
 
+확인
+```shell
+etcdctl snapshot status snapshotdb
+```
+
 복구
 ```shell
 etcdctl snapshot restore snapshotdb
