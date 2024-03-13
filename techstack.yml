@@ -1,0 +1,44 @@
+repo_name: kmss6905/goorm-8th-k8s
+report_id: dd1024548210ff3757c4ad4af9260298
+version: 0.1
+repo_type: Public
+timestamp: '2024-03-13T07:21:35+00:00'
+requested_by: c1t1d0s7
+provider: github
+branch: main
+detected_tools_count: 3
+tools:
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/kmss6905/goorm-8th-k8s
+  detection_source: Repo Metadata
+- name: Vagrant
+  description: A tool for building and distributing development environments
+  website_url: http://www.vagrantup.com/
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Virtual Machine Management
+  image_url: https://img.stackshare.io/service/768/150px-Vagrant.png
+  detection_source_url: https://github.com/kmss6905/goorm-8th-k8s/blob/main/manifests/00_vagrantfile/Vagrantfile
+  detection_source: manifests/00_vagrantfile/Vagrantfile
+  last_updated_by: Ryan Jang
+  last_updated_on: 2023-02-13 00:10:18.000000000 Z
+- name: Shell
+  description: A shell is a text-based terminal, used for manipulating programs and
+    files. Shell scripts typically manage program execution.
+  website_url: https://en.wikipedia.org/wiki/Shell_script
+  open_source: false
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png
+  detection_source_url: https://github.com/kmss6905/goorm-8th-k8s
+  detection_source: Repo Metadata
